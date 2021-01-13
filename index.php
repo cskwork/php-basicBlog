@@ -1,3 +1,28 @@
+<!-- ADD DB CONNECTION -->
+<?php
+//Path to database - connect sqllite/pdo connection
+$root = __DIR__;
+$database = $root . '/data/data.sqlite';
+$dsn = 'sqlite:' . $database;
+//Check path
+//echo $dsn;
+
+//Connect to db, run query, handle error
+$pdo = new PDO($dsn); //PHP DATA OBJECT
+$stmt = $pdo->query(
+    'SELECT
+        id, title, created_at, body
+     FROM
+        post
+     ORDER BY
+        created_at DESC'
+);
+if($stmt == false){
+    throw new Exception('Problem running query');
+    };
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,14 +33,16 @@
         <h1>Blog title</h1>
         <p>This paragraph summarises what the blog is about.</p>
 
-        <h2>Article 1 title</h2>
-        <div>dd Mon YYYY</div>
-        <p>A paragraph summarising article 1.</p>
-        <p>
-            <a href="#">Read more...</a>
-        </p>
-
-<!-- Changed to PHP Loop -->
+        <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?> 
+            <h2><?php echo htmlspecialchars($row['title'], ENT_HTML5, 'UTF-8') ?></h2>
+            <?php echo $row['created_at'] ?>
+            <p><?php echo htmlspecialchars($row['body'], ENT_HTML5, 'UTF-8') ?></p>
+            <p>
+                <a href="view-post.php?post_id=<?php echo $row['id'] ?>"
+                >Read more...</a>
+            </p>
+        <?php endwhile ?> 
+<!-- 1 Changed to PHP Loop -->
 <!--
         <h2>Article 2 title</h2>
         <div>dd Mon YYYY</div>
@@ -31,14 +58,15 @@
             <a href="#">Read more...</a>
         </p>
 -->
-		<?php for ($postId = 1; $postId <=3; $postId++): ?>
-			<h2>Article <?php echo $postId ?>title</he>
-			<div>dd Mon YYYY</div>
-			<p>A paragraph summarizing article<?php echo $postId ?></p>
-			<p>
-				<a href="#">Read More...</a>
-			</p>
-		<?php endfor ?>
+<!-- 2 Remove Mock-up-->
+   <!-- <?php for ($postId = 1; $postId <=3; $postId++): ?>
+            <h2>Article <?php echo $postId ?>title</he>
+            <div>dd Mon YYYY</div>
+            <p>A paragraph summarizing article<?php echo $postId ?></p>
+            <p>
+                <a href="#">Read More...</a>
+            </p>
+        <?php endfor ?> -->
 
     </body>
 </html>

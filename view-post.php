@@ -1,9 +1,6 @@
 <?php
+require_once 'lib/common.php';
 
-//Connect to DB
-$root = __DIR__;
-$db = $root . '/data/data.sqlite';
-$dsn = 'sqlite:' . $db ; //datasourcename with host,port,dbname
 
 //GET post ID
 if(isset($_GET['post_id'])){
@@ -13,7 +10,7 @@ if(isset($_GET['post_id'])){
 	$postId = 0;
 }
 
-$pdo = new PDO($dsn);
+$pdo = getPDO();
 $stmt = $pdo->prepare(
 	'SELECT
 		title, created_at, body
@@ -49,17 +46,16 @@ $row = $stmt -> fetch(PDO::FETCH_ASSOC);
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 </head>
 <body>
-	<h1>Blog title</h1>
-
+	<?php require 'templates/title.php' ?>
 
 	<h2>
-		<?php echo htmlspecialchars($row['title'], ENT_HTML5, 'UTF-8') ?>
+		<?php echo htmlEscape($row['title']) ?>
 	</h2>
 	<div>
 		<?php echo $row['created_at']?>
 	</div>
 	<p>
-		<?php echo htmlspecialchars($row['body'], ENT_HTML5, 'UTF-8') ?>
+		<?php echo htmlEscape($row['title']) ?>
 	</p>
 
 </body>

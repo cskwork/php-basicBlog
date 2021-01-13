@@ -1,6 +1,8 @@
 /**
  * Database creation script
  */
+
+ /*----------------------- POST TABLE -----------------------*/
 DROP TABLE IF EXISTS post;
 CREATE TABLE post (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -28,10 +30,10 @@ INSERT INTO
     (
         title, body, user_id, created_at
     )
-    VALUES(
+    VALUES
+    (
         "Now for a second article",
-        "This is the body of the second post.
-This is another paragraph.",
+        "This is the body of the second post. This is another paragraph.",
         1,
         date('now', '-40 days')
     )
@@ -47,5 +49,83 @@ INSERT INTO
 This is split into paragraphs.",
         1,
         date('now', '-13 days')
+    );
+ /*----------------------- POST TABLE -----------------------*/
+
+  /*----------------------- COMMENT TABLE -----------------------*/
+
+DROP TABLE IF EXISTS comment;
+CREATE TABLE comment (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    post_id INTEGER NOT NULL,
+    created_at VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
+    website VARCHAR,
+    text VARCHAR NOT NULL
+);
+INSERT INTO
+    comment
+    (
+        post_id, created_at, name, website, text
     )
-;
+    VALUES(
+        1,
+        date('now', '-10 days'),
+        'Danny',
+        'http://example.com/',
+        "This is Danny's contribution"
+    );
+ 
+INSERT INTO
+    comment
+    (
+        post_id, created_at, name, website, text
+    )
+    VALUES(
+        1,
+        date('now', '-8 days'),
+        'Johnny',
+        'http://anotherexample.com/',
+        "This is a comment from Johnny"
+    );
+/*
+DROP TABLE IF EXISTS comment;
+
+CREATE TABLE comment (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    post_id INTEGER NOT NULL,
+    created_at VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
+    website VARCHAR,
+    text VARCHAR NOT NULL
+    );
+
+INSERT INTO 
+    comment
+    (
+        post_id, created_at, name, website, text
+    )
+    VALUES
+    (
+        1,
+        date('now','-10days'),
+        'Danny1',
+        'http://example.com/',
+        "This is Danny's contribution"
+    );
+
+INSERT INTO
+    comment
+    (
+        post_id, created_at, name, website, text
+    )
+    VALUES(
+        1,
+        date('now', '-8 days'),
+        'Johnny2',
+        'http://anotherexample.com/',
+        "This is a comment from Johnny"
+    );
+*/
+
+  /*----------------------- COMMENT TABLE -----------------------*/

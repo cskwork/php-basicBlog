@@ -35,13 +35,19 @@ if($result === false){
 
 //Get row
 $row = $stmt -> fetch(PDO::FETCH_ASSOC);
-?>
 
+//Swap CR for para. breaks.
+$bodyText = htmlEscape($row['body']);
+echo $bodyText;
+//Make line break for php (\n doesn't work)
+$paraText = str_replace("\n", "</p><p>", $bodyText);
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Blog App |
-		<?php echo htmlspecialchars($row['title'], ENT_HTML5, 'UTF-8')?>
+		<?php echo htmlEscape($row['title'])?>
 	</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 </head>
@@ -52,11 +58,30 @@ $row = $stmt -> fetch(PDO::FETCH_ASSOC);
 		<?php echo htmlEscape($row['title']) ?>
 	</h2>
 	<div>
-		<?php echo $row['created_at']?>
+		<?php echo convertSqlDate($row['created_at']) ?>
 	</div>
 	<p>
-		<?php echo htmlEscape($row['title']) ?>
+		<?php echo $paraText ?>
 	</p>
+	<br>
+	<!-- COMMENT -->
+	<h3><?php countCommentsForPost($postId) ?> comments</h3>
+	<?php foreach (getCommentsForPost($postId) as $comment): ?>
+		<?php //Comment split ?>
+		<hr />
+		<div class="comment">
+			<div class="comment-meta">
+				Comment from 
+				<?php echo htmlEscape($comment['name']) ?>
+				on
+				<?php echo convertSqlDate($comment['created_at'])?>
+			</div>
+			<div class="comment-body">
+				<?php echo htmlEscape($comment['text']) ?>
+			</div>
+		</div>
+	<?php endforeach ?>
+
 
 </body>
 </html>

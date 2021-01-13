@@ -1,9 +1,14 @@
 <!-- ADD DB CONNECTION -->
 <?php
-require_once 'lib/common.php';
+//Path to database - connect sqllite/pdo connection
+$root = __DIR__;
+$database = $root . '/data/data.sqlite';
+$dsn = 'sqlite:' . $database;
+//Check path
+//echo $dsn;
 
 //Connect to db, run query, handle error
-$pdo = getPDO();//PHP DATA OBJECT
+$pdo = new PDO($dsn); //PHP DATA OBJECT
 $stmt = $pdo->query(
     'SELECT
         id, title, created_at, body
@@ -25,20 +30,17 @@ if($stmt == false){
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
     <body>
-         <?php require 'templates/title.php' ?>
+        <h1>Blog title</h1>
+        <p>This paragraph summarises what the blog is about.</p>
 
         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?> 
-
-            <h2><?php echo htmlEscape($row['title']) ?></h2>
-            <div><?php echo convertSqlDate($row['created_at']) ?></div>
-            (<?php echo countCommentsForPost($row['id'])?> comments)
-
-            <p><?php echo htmlEscape($row['body']) ?></p>
+            <h2><?php echo htmlspecialchars($row['title'], ENT_HTML5, 'UTF-8') ?></h2>
+            <?php echo $row['created_at'] ?>
+            <p><?php echo htmlspecialchars($row['body'], ENT_HTML5, 'UTF-8') ?></p>
             <p>
                 <a href="view-post.php?post_id=<?php echo $row['id'] ?>"
                 >Read more...</a>
             </p>
-            
         <?php endwhile ?> 
 <!-- 1 Changed to PHP Loop -->
 <!--

@@ -2,6 +2,8 @@
 <?php
 require_once 'lib/common.php';
 
+session_start();
+
 //Connect to db, run query, handle error
 $pdo = getPDO();//PHP DATA OBJECT
 $stmt = $pdo->query(
@@ -35,7 +37,7 @@ $notFound=''
                 Error: Cannot find requested blog post.
             </div>
         <?php endif ?>
-
+<!-- mysqli_fetch_assoc 함수는 mysqli_query 를 통해 얻은 리절트 셋(result set)에서 레코드를 1개씩 리턴해주는 함수입니다.-->
         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?> 
 
             <h2><?php echo htmlEscape($row['title']) ?></h2>

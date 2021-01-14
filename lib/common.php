@@ -37,6 +37,21 @@ function getPDO()
 {
     return new PDO(getDsn());
 }
+
+function redirectAndExit($script)
+{
+	//Get domain-relative URL
+	$relativeUrl = $_SERVER['PHP_SELF'];
+	$urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
+	//Resirect to full Url
+	$host = $_SERVER['HTTP_HOST'];
+	$fullUrl = 'http://' . $host . $urlFolder . $script;
+	header('Location: ' . $fullUrl);
+	exit();
+}
+
+
+
 /* --------------DATA SOURCE OBJECT-------------*/
 
 
@@ -56,11 +71,11 @@ function htmlEscape($html)
 //Date Parsing
 function convertSqlDate($sqlDate){
 /* @var $date DateTime */
-	$date = DateTime::createFromFormat('Y-m-d',$sqlDate);
-	return $date->format('d M Y');
+	$date = DateTime::createFromFormat('Y-m-d H:i:s',$sqlDate);
+	return $date->format('d M Y, H:i');
 }
-/* --------------STRINGUTIL-------------*/
 
+/* --------------STRINGUTIL-------------*/
 
 /* --------------COMMENTS-------------*/
 /**

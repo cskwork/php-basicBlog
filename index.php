@@ -30,7 +30,7 @@ $notFound = isset($_GET['not-found']);
          <?php require 'templates/title.php' ?>
          <?php if ($notFound): ?>
             <div style="border:1px solid #ff6666; padding: 6px;">
-                Error: cennot find requested blog post.
+                Error: Cannot find requested blog post.
             </div>
         <?php endif ?>
 

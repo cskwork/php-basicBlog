@@ -55,7 +55,7 @@ function redirectAndExit($script)
 /* --------------DATA SOURCE OBJECT-------------*/
 
 
-/* --------------STRINGUTIL-------------*/
+/* --------------STRING AND DATE UTIL-------------*/
 
 /**
  * Escapes HTML so it is safe to output
@@ -75,7 +75,24 @@ function convertSqlDate($sqlDate){
 	return $date->format('d M Y, H:i');
 }
 
-/* --------------STRINGUTIL-------------*/
+/**
+ * Converts unsafe text to safe, paragraphed, HTML
+ *
+ * @param string $text
+ * @return string
+ */
+function convertNewlinesToParagraphs($text)
+{
+    $escaped = htmlEscape($text);
+    return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
+}
+
+function getSqlDateForNow()
+{
+    return date('Y-m-d H:i:s');
+}
+
+/* --------------STRING AND DATE UTIL-------------*/
 
 /* --------------COMMENTS-------------*/
 /**
@@ -125,3 +142,6 @@ function getCommentsForPost($postId)
 }
 
 /* --------------COMMENTS-------------*/
+
+
+?>

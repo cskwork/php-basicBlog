@@ -20,11 +20,51 @@ if (!$row)
     redirectAndExit('index.php?not-found=1');
 }
 
+//Check ERROR
+$errors = null;
+//echo $_POST['comment-name'];
+if($_POST)
+{
+	//echo $_POST['comment-name'];
+	$commentData = array(
+		'name'=>$_POST['comment-name'],
+		'website'=>$_POST['comment-website'],
+		'text'=>$_POST['comment-text'],
+	);
+	$errors = addCommentToPost(
+		$pdo,
+		$postId,
+		$commentData
+	);
+
+	//If no error redirect to self
+	if(!$errors)
+	{
+		redirectAndExit('view-post.php?post_id=' . $post_id);
+	}
+}
+else
+{
+	    $commentData = array(
+	        'name' => '',
+	        'website' => '',
+	        'text' => '',
+	    );
+}
+
+//NO LONGER NEEDED
 //Swap CR for para. breaks.
-$bodyText = htmlEscape($row['body']);
-echo $bodyText;
+//$bodyText = htmlEscape($row['body']);
+//echo $bodyText;
 //Make line break for php (\n doesn't work)
-$paraText = str_replace("\n", "</p><p>", $bodyText);
+//$paraText = str_replace("\n", "</p><p>", $bodyText);
+
+//INIT COMMENTDATA (null issue)
+$commentData = array(
+	        'name' => '',
+	        'website' => '',
+	        'text' => '',
+	    );
 
 ?>
 <!DOCTYPE html>
@@ -44,9 +84,8 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
 	<div>
 		<?php echo convertSqlDate($row['created_at']) ?>
 	</div>
-	<p>
-		<?php echo $paraText ?>
-	</p>
+	<?php // This is already escaped, so doesn't need further escaping ?>
+    <?php echo convertNewlinesToParagraphs($row['body']) ?>
 	<br>
 	<!-- COMMENT -->
 	<h3><?php countCommentsForPost($postId) ?> comments</h3>
@@ -61,11 +100,11 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
 				<?php echo convertSqlDate($comment['created_at'])?>
 			</div>
 			<div class="comment-body">
-				<?php echo htmlEscape($comment['text']) ?>
+				<?php // This is already escaped ?>
+                <?php echo convertNewlinesToParagraphs($comment['text']) ?>
 			</div>
 		</div>
 	<?php endforeach ?>
-
-
+	<?php require 'templates/comment-form.php' ?>
 </body>
 </html>

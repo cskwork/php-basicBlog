@@ -16,8 +16,10 @@ if($stmt == false){
     throw new Exception('Problem running query');
     };
 
-$notFound = isset($_GET['not-found']);
-
+//echo $_GET['not-found'];
+//FIND REASON
+//$notFound = isset($_GET['not-found']);
+$notFound=''
 ?>
 
 <!DOCTYPE html>

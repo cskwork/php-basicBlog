@@ -22,7 +22,8 @@ INSERT INTO
         "This is the body of the first post.
 It is split into paragraphs.",
         1,
-        date('now', '-2 months')
+        --date('now', '-2 months') --only date to taking both time and date
+        datetime('now', '-2 months','-45 minutes', '+10 seconds')
     )
 ;
 INSERT INTO
@@ -35,7 +36,7 @@ INSERT INTO
         "Now for a second article",
         "This is the body of the second post. This is another paragraph.",
         1,
-        date('now', '-40 days')
+        datetime('now', '-40 days', '+815 minutes', '+37 seconds')
     )
 ;
 INSERT INTO
@@ -48,7 +49,7 @@ INSERT INTO
         "This is the body of the third post.
 This is split into paragraphs.",
         1,
-        date('now', '-13 days')
+        datetime('now', '-13 days', '+198 minutes', '+51 seconds')
     );
  /*----------------------- POST TABLE -----------------------*/
 
@@ -70,7 +71,7 @@ INSERT INTO
     )
     VALUES(
         1,
-        date('now', '-10 days'),
+        datetime('now', '-13 days', '+198 minutes', '+51 seconds'),
         'Danny',
         'http://example.com/',
         "This is Danny's contribution"
@@ -83,7 +84,7 @@ INSERT INTO
     )
     VALUES(
         1,
-        date('now', '-8 days'),
+        datetime('now', '-8 days', '+549 minutes', '+32 seconds'),
         'Johnny',
         'http://anotherexample.com/',
         "This is a comment from Johnny"

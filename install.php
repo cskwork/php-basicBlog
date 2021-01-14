@@ -67,10 +67,12 @@ if ($_POST)
     // Here's the install
     list($_SESSION['count'], $_SESSION['error']) = installBlog();
     // ... and here we redirect from POST to GET
-    $host = $_SERVER['HTTP_HOST'];
-    $script = $_SERVER['REQUEST_URI'];
-    header('Location: http://' . $host . $script);
-    exit();
+    redirectAndExit('install.php');
+
+    //$host = $_SERVER['HTTP_HOST'];
+    //$script = $_SERVER['REQUEST_URI'];
+    //header('Location: http://' . $host . $script);
+    //exit();
 }
 // Let's see if we've just installed
 $attempted = false;
@@ -105,6 +107,10 @@ if ($_SESSION)
                         <?php endif ?>
                     <?php endforeach ?>
                 </div>
+                    <p>
+                        <a href="index.php">View the blog</a>,
+                        or <a href="install.php">Install again</a>.
+                    </p>
             <?php endif ?>
         <?php else: ?>
             <p>Click the install button to reset the database.</p>

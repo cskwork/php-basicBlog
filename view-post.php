@@ -15,6 +15,7 @@ $pdo = getPDO();
 $row = getPostRow($pdo, $postId);
 
 // If the post does not exist, let's deal with that here
+
 if (!$row)
 {
     redirectAndExit('index.php?not-found=1');

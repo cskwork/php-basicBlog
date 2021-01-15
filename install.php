@@ -51,6 +51,9 @@ if (isset($_SESSION['try-install']))
 }
 ?>
         </style>
+    <head>
+        <title>Blog Installer</title>
+        <?php require 'templates/head.php' ?>
     </head>
     <body>
         <?php if ($attempted): ?>
@@ -73,7 +76,7 @@ if (isset($_SESSION['try-install']))
                     <?php endforeach ?>
 <br>
                     <?php //Report the new password ?>
-                    The new '<?php echo htmlEscape($username)?>' password is <span style="font-size: 1.2em;"><?php echo htmlEscape($password) ?></span>
+                    The new '<?php echo htmlEscape($username)?>' password is <span class="install-password"><?php echo htmlEscape($password) ?></span>
                     (copy to clipboard if you wish)
                 </div>
                     <p>

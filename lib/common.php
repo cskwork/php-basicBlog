@@ -50,8 +50,6 @@ function redirectAndExit($script)
 	exit();
 }
 
-
-
 /* --------------DATA SOURCE OBJECT-------------*/
 
 
@@ -155,13 +153,13 @@ function tryLogin(PDO $pdo, $username, $password){
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute(
-        array('username => $username,')
+        array('username' => $username,)
     );
 
     //Get hash from this row, use hashing lib to check.
     $hash = $stmt->fetchColumn();
+    //echo $hash;
     $success = password_verify($password, $hash);
-    echo $success;
     return $success;
 }
 
@@ -182,6 +180,19 @@ function login($username){
 function isLoggedIn(){
     return isset($_SESSION['logged_in_username']);
 }
+
+/**
+ * Logs the user out
+ */
+function logout(){
+    unset($_SESSION['logged_in_username']);
+}
+
+function getAuthUser(){
+    return isLoggedIn() ? $_SESSION['logged_in_username'] : null;
+}
+
+
 /* --------------LOGIN-------------*/
 
 ?>

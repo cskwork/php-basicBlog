@@ -42,20 +42,20 @@ if($_POST){
             </div>
         <?php endif ?>
 
-        <p>Login here:</p>
+        <p>로그인:</p>
         <form
             method="post"
         >
             <p>
-                Username:
+                사용자ID:
                 <input type="text" name="username" 
                 value="<?php echo htmlEscape($username) ?>">
             </p>
             <p>
-                Password:
+                암호:
                 <input type="password" name="password" />
             </p>
-            <input type="submit" name="submit" value="Login" />
+            <input type="submit" name="submit" value="로그인" />
         </form>
     </body>
 </html>

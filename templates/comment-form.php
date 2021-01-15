@@ -18,12 +18,12 @@
     </div>
 <?php endif ?>
 
-<h3>Add your comment</h3>
+<h3>댓글</h3>
 
 <form method="post">
 	<p>
 		<label for="comment-name">
-			Name:
+			성함:
 		</label>
 		<input 
 		style="margin-left: 2em" type="text" id="comment-name" name="comment-name"
@@ -31,14 +31,14 @@
 	</p>
 	<p>
 		<label for="comment-website">
-			Website:
+			웹사이트:
 		</label>
 		<input style="margin-left: 1em" type="text" id="comment-website" name="comment-website"
 		value="<?php echo htmlEscape($commentData['website']) ?>" />
 	</p>
 	<p>
 		<label for="comment-text">
-			Comment:
+			댓글:
 		</label>
 		<textarea id="comment-text" name="comment-text" rows="8" cols="70"><?php echo htmlEscape($commentData['text']) ?></textarea>
 	</p>

@@ -20,7 +20,7 @@ $row = getPostRow($pdo, $postId);
 
 if (!$row)
 {
-    redirectAndExit('index.php?not-found=1');
+    redirectAndExit("index.php?not-found=1");
 }
 
 //Check ERROR
@@ -39,11 +39,10 @@ if($_POST)
 		$postId,
 		$commentData
 	);
-
 	//If no error redirect to self
 	if(!$errors)
 	{
-		redirectAndExit('view-post.php?post_id=' . $post_id);
+		redirectAndExit('view-post.php?post_id=' . $postId);#POSTID~!!!
 	}
 }
 else
@@ -63,13 +62,14 @@ else
 //$paraText = str_replace("\n", "</p><p>", $bodyText);
 
 //INIT COMMENTDATA (null issue)
-$commentData = array(
+/*$commentData = array(
 	        'name' => '',
 	        'website' => '',
 	        'text' => '',
 	    );
-
+*/
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +91,7 @@ $commentData = array(
     <?php echo convertNewlinesToParagraphs($row['body']) ?>
 	<br>
 	<!-- COMMENT -->
-	<h3><?php countCommentsForPost($postId) ?> comments</h3>
+	<h3><?php countCommentsForPost($postId) ?> 댓글</h3>
 	<?php foreach (getCommentsForPost($postId) as $comment): ?>
 		<?php //Comment split ?>
 		<hr />

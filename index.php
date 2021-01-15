@@ -20,8 +20,8 @@ if($stmt == false){
 
 //echo $_GET['not-found'];
 //FIND REASON
-//$notFound = isset($_GET['not-found']);
-$notFound=''
+
+$notFound = isset($_GET['not-found']);
 ?>
 
 <!DOCTYPE html>
@@ -42,12 +42,12 @@ $notFound=''
 
             <h2><?php echo htmlEscape($row['title']) ?></h2>
             <div><?php echo convertSqlDate($row['created_at']) ?></div>
-            (<?php echo countCommentsForPost($row['id'])?> comments)
+            (<?php echo countCommentsForPost($row['id'])?> 댓글)
 
             <p><?php echo htmlEscape($row['body']) ?></p>
             <p>
                 <a href="view-post.php?post_id=<?php echo $row['id'] ?>"
-                >Read more...</a>
+                >더 읽기...</a>
             </p>
             
         <?php endwhile ?> 

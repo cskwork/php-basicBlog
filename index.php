@@ -28,29 +28,34 @@ $notFound = isset($_GET['not-found']);
 <html>
     <head>
         <title>A blog application</title>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <!--Modularize header- meta contenttype, utf-8 -->
+         <?php require 'templates/head.php' ?>
     </head>
     <body>
          <?php require 'templates/title.php' ?>
          <?php if ($notFound): ?>
-            <div style="border:1px solid #ff6666; padding: 6px;">
+               <div class="error box">
                 Error: Cannot find requested blog post.
             </div>
         <?php endif ?>
 <!-- mysqli_fetch_assoc 함수는 mysqli_query 를 통해 얻은 리절트 셋(result set)에서 레코드를 1개씩 리턴해주는 함수입니다.-->
+    <div class="post-list">
         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?> 
+            <div class="post-synopsis">
 
             <h2><?php echo htmlEscape($row['title']) ?></h2>
-            <div><?php echo convertSqlDate($row['created_at']) ?></div>
-            (<?php echo countCommentsForPost($row['id'])?> 댓글)
+            <div class="meta"><?php echo convertSqlDate($row['created_at']) ?></div>
+            (<?php echo countCommentsForPost($pdo, $row['id'])?> 댓글)
 
             <p><?php echo htmlEscape($row['body']) ?></p>
-            <p>
-                <a href="view-post.php?post_id=<?php echo $row['id'] ?>"
+            <div class="read-more">
+                <a href="view-post.php?post_id=<?php echo $row['id']?>"
                 >더 읽기...</a>
-            </p>
+            </div>
+        </div>
             
         <?php endwhile ?> 
+    </div>
 <!-- 1 Changed to PHP Loop -->
 <!--
         <h2>Article 2 title</h2>

@@ -95,12 +95,12 @@ function getSqlDateForNow()
 /* --------------COMMENTS-------------*/
 /**
  * Returns the number of comments for the specified post
- *
+ * @param PDO $pdo
  * @param integer $postId
  * @return integer
  */
- function countCommentsForPost($postId){
- 	$pdo = getPDO();
+ function countCommentsForPost(PDO $pdo, $postId){
+ 	//$pdo = getPDO();
  	$sql = "
  		SELECT 
  			COUNT(*) c 
@@ -118,12 +118,12 @@ function getSqlDateForNow()
 
  /**
  * Returns all the comments for the specified post
- *
+ * @param PDO $pdo
  * @param integer $postId
  */
-function getCommentsForPost($postId)
+function getCommentsForPost(PDO $pdo, $postId)
 {
-    $pdo = getPDO();
+    //$pdo = getPDO();
     $sql = "
         SELECT
             id, name, text, created_at, website

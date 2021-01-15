@@ -76,38 +76,41 @@ else
 	<title>Blog App |
 		<?php echo htmlEscape($row['title'])?>
 	</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<?php require 'templates/head.php' ?>
 </head>
 <body>
 	<?php require 'templates/title.php' ?>
-
-	<h2>
-		<?php echo htmlEscape($row['title']) ?>
-	</h2>
-	<div>
-		<?php echo convertSqlDate($row['created_at']) ?>
+	<div class="post">
+		<h2>
+			<?php echo htmlEscape($row['title']) ?>
+		</h2>
+		<div class="date">
+			<?php echo convertSqlDate($row['created_at']) ?>
+		</div>
+		<?php // This is already escaped, so doesn't need further escaping ?>
+	    <?php echo convertNewlinesToParagraphs($row['body']) ?>
 	</div>
-	<?php // This is already escaped, so doesn't need further escaping ?>
-    <?php echo convertNewlinesToParagraphs($row['body']) ?>
 	<br>
 	<!-- COMMENT -->
-	<h3><?php countCommentsForPost($postId) ?> 댓글</h3>
-	<?php foreach (getCommentsForPost($postId) as $comment): ?>
-		<?php //Comment split ?>
-		<hr />
-		<div class="comment">
-			<div class="comment-meta">
-				Comment from 
-				<?php echo htmlEscape($comment['name']) ?>
-				on
-				<?php echo convertSqlDate($comment['created_at'])?>
+	<div class="comment-list">
+		<h3><?php countCommentsForPost($pdo, $postId) ?> 댓글</h3>
+		<?php foreach (getCommentsForPost($pdo, $postId) as $comment): ?>
+			<?php //Comment split ?>
+			
+			<div class="comment">
+				<div class="comment-meta">
+					Comment from 
+					<?php echo htmlEscape($comment['name']) ?>
+					on
+					<?php echo convertSqlDate($comment['created_at'])?>
+				</div>
+				<div class="comment-body">
+					<?php // This is already escaped ?>
+	                <?php echo convertNewlinesToParagraphs($comment['text']) ?>
+				</div>
 			</div>
-			<div class="comment-body">
-				<?php // This is already escaped ?>
-                <?php echo convertNewlinesToParagraphs($comment['text']) ?>
-			</div>
-		</div>
-	<?php endforeach ?>
+		<?php endforeach ?>
+	</div>
 	<?php require 'templates/comment-form.php' ?>
 </body>
 </html>

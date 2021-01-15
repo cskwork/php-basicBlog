@@ -1,11 +1,12 @@
 <div style="float: right;">
 	<?php if(isLoggedIn()):?>
-		<a href="logout.php">Log Out</a>
+	안녕 <?php echo htmlEscape(getAuthUser()) ?>.
+		<a href="logout.php">로그아웃</a>
 	<?php else: ?>
-		<a href="login.php">Log In</a>
+		<a href="login.php">로그인</a>
 	<?php endif ?>
 </div>
 
 <a href="index.php">
-	<h1>Blog title</h1>
+	<h1>블로그</h1>
 </a>

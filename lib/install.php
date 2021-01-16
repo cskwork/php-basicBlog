@@ -89,21 +89,25 @@ function createUser(PDO $pdo, $username, $length = 10){
 
     $error = '';
 
+/**
+ * Updates the admin user in the database
+ *
+ * @param PDO $pdo
+ * @param string $username
+ */
     $sql = "
-        INSERT INTO user
-        (
-            username, password, created_at
-        ) VALUES
-        (
-            :username, :password, :created_at
-        )";
+        UPDATE user
+        SET
+            password = :password, created_at= :created_at, is_enabled=1
+        
+        WHERE
+            username = :username
+        ";
 
     $stmt = $pdo->prepare($sql);
     if($stmt === false){
-         $error = 'Could not prepare the user creation';
+         $error = 'Could not prepare the user update';
     };
-
-
 
     if (!$error){
         // Create a hash of the password, to make a stolen user database (nearly) worthless
@@ -113,8 +117,6 @@ function createUser(PDO $pdo, $username, $length = 10){
             $error = 'Password hashing failed';
         }
     }
-
-
     // Storing the password in plaintext, will fix that later
     // Insert user details, including hashed password
     if (!$error)

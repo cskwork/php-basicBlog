@@ -10,13 +10,14 @@ if (version_compare(PHP_VERSION, '5.3.7') < 0)
 
 session_start();
 
-//Handle form posting
+//Handle Login Submit
 $username = '';
 if($_POST){
     //Init db
     $pdo = getPDO();
     //Direct only pw is correct 
-    $ok = tryLogin($pdo, $_POST['username'], $_POST['password']);
+    $username = $_POST['username'];
+    $ok = tryLogin($pdo, $username, $_POST['password']);
     //$ok = 1;
     if($ok){
         login($username);

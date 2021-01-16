@@ -35,7 +35,15 @@ function getDsn()
  */
 function getPDO()
 {
-    return new PDO(getDsn());
+    $pdo = new PDO(getDsn());
+
+    //FK constraint enabled manually - req in sqllite
+    $result = $pdo->query('PRAGMA foreign_keys = ON');
+    if($result === false){
+        throw new Exception('Could not turn on FK constraints');
+    }
+
+    return $pdo;
 }
 
 function redirectAndExit($script)
@@ -159,6 +167,14 @@ function tryLogin(PDO $pdo, $username, $password){
     //Get hash from this row, use hashing lib to check.
     $hash = $stmt->fetchColumn();
     //echo $hash;
+
+
+    //for admin only remove later 
+    /*if('admin'== $username && 'unhashed-password' == $password){
+        $success = 1;
+    }else{
+        $success = password_verify($password, $hash);
+    }*/
     $success = password_verify($password, $hash);
     return $success;
 }

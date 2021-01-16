@@ -73,14 +73,7 @@ $notFound = isset($_GET['not-found']);
         </p>
 -->
 <!-- 2 Remove Mock-up-->
-   <!-- <?php for ($postId = 1; $postId <=3; $postId++): ?>
-            <h2>Article <?php echo $postId ?>title</he>
-            <div>dd Mon YYYY</div>
-            <p>A paragraph summarizing article<?php echo $postId ?></p>
-            <p>
-                <a href="#">Read More...</a>
-            </p>
-        <?php endfor ?> -->
+
 
     </body>
 </html>

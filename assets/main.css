@@ -71,11 +71,11 @@ body {
 .comment-margin {
     margin-bottom: 8px;
 }
-.comment-form input,
-.comment-form textarea {
+.user-form input,
+.user-form textarea {
     margin: 4px;
 }
-.comment-form label {
+.user-form label {
     font-size: 0.95em;
     margin: 6px;
     width: 7em;
@@ -86,10 +86,12 @@ body {
         Let's reset each to the left-hand side to be sure. */
     clear: left;
 }
-.comment-form button{
+.comment-form button,
+.post-form button{
     margin-left: 9em;
     background-color: cyan;
     color:black;
 }
 /* -----------------ARTICLE AND PAGE CSS -----------*/
 
+/* -----------------

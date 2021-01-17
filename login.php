@@ -30,7 +30,7 @@ if($_POST){
 <html>
     <head>
         <title>
-            A blog application | Login
+            PHP 블로그 | Login
         </title>
         <?php require 'templates/head.php' ?>
     </head>

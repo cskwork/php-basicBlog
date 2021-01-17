@@ -73,7 +73,7 @@ else
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Blog App |
+	<title>PHP 블로그 |
 		<?php echo htmlEscape($row['title'])?>
 	</title>
 	<?php require 'templates/head.php' ?>

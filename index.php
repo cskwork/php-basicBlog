@@ -27,7 +27,7 @@ $notFound = isset($_GET['not-found']);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>A blog application</title>
+        <title>PHP 블로그</title>
         <!--Modularize header- meta contenttype, utf-8 -->
          <?php require 'templates/head.php' ?>
     </head>

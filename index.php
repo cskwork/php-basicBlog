@@ -1,3 +1,10 @@
+<!--
+문제해결: 
+ - Separation of concern 
+ - 세션 유지 (반복적인 로그인 X)
+ - 모든 글 가져와서 출력 
+-->
+
 <!-- ADD DB CONNECTION -->
 <?php
 require_once 'lib/common.php';
@@ -48,9 +55,13 @@ $notFound = isset($_GET['not-found']);
             (<?php echo countCommentsForPost($pdo, $row['id'])?> 댓글)
 
             <p><?php echo htmlEscape($row['body']) ?></p>
-            <div class="read-more">
+            <div class="post-controls">
                 <a href="view-post.php?post_id=<?php echo $row['id']?>"
                 >더 읽기...</a>
+                <?php if(isLoggedIn()): ?>
+                    |
+                    <a href="edit-post.php?post_id=<?php echo $row['id']?>">수정</a>
+                <?php endif ?>
             </div>
         </div>
             

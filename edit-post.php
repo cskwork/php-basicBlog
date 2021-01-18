@@ -1,3 +1,17 @@
+<!--
+문제해결: 
+ - Separation of concern 
+ - 세션 유지 (반복적인 로그인 X)
+ - 권한이 없는 사용자는 메인 페이지로 이동
+ - 폼 초기화.
+ - db 연결에 필요한 오브젝트 초기화
+ - 폼 고유 id로 불러온 글 변수에 설정
+ - 제목, 내용 등이 없는 경우 예외 처리 
+ - 기존에 폼 고유 ID가 있는(즉 이미 있는 글이면) 수정함수 실행 없으면 추가함수 실행 
+ - 에러가 있으면 에러 페이지로 리다이렉트 
+ - 글 작성 양식 html 구현 
+-->
+
 <?php
 require_once 'lib/common.php';
 require_once 'lib/edit-post.php';
@@ -21,6 +35,7 @@ $postId = null;
 if (isset($_GET['post_id']))
 {
     $post = getPostRow($pdo, $_GET['post_id']);
+    //echo $post['body'];
     if ($post)
     {
         $postId = $_GET['post_id'];
@@ -59,6 +74,7 @@ if($_POST){
 	// Replaced to have both add and
     if ($postId){
     	editPost($pdo, $title, $body, $postId);
+        redirectAndExit('index.php');
     }else{
     	$userId = getAuthUserId($pdo);
     	$postId = addPost($pdo, $title, $body, $userId);
@@ -66,6 +82,8 @@ if($_POST){
     	if($postId ===false){
     		$errors[] = 'Post Operation Failed';
     	}
+        //글 쓰고 메인 페이지로 이동
+        redirectAndExit('index.php');
     }
 
 
@@ -91,7 +109,13 @@ if($_POST){
         <?php require 'templates/head.php' ?>
     </head>
     <body>
-        <?php require 'templates/title.php' ?>
+        <?php require 'templates/top-menu.php' ?>
+
+        <?php if (isset($_GET['post_id'])):?>
+            <h1>글수정</h1>
+        <?php else: ?>
+            <h1>글쓰기</h1>
+        <?php endif ?>
 
         <?php if ($errors): ?>
         	<div class="error box">
@@ -122,11 +146,12 @@ if($_POST){
                     name="post-body"
                     rows="12"
                     cols="70"
-                    value="<?php echo htmlEscape($body) ?>"></textarea>
+                    ><?php echo htmlEscape($body)?></textarea>
             </div>
             <div>
 				<button type="submit">글쓰기</button>
-			</div>
+			    <a href="index.php">취소</a>
+            </div>
         </form>
     </body>
 </html>

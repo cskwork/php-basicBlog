@@ -10,6 +10,11 @@ if (version_compare(PHP_VERSION, '5.3.7') < 0)
 
 session_start();
 
+//로그인 됐으면 메인페이지로 이동
+if(isLoggedIn()){
+    redirectAndExit('index.php');
+}
+
 //Handle Login Submit
 $username = '';
 if($_POST){

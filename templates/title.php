@@ -1,14 +1,4 @@
-<div class="top-menu">
-	<div class="menu-options">
-		<?php if(isLoggedIn()):?>
-			<a href="edit-post.php">글쓰기</a>
-			안녕 <?php echo htmlEscape(getAuthUser()) ?>.
-			<a href="logout.php">로그아웃</a>
-		<?php else: ?>
-			<a href="login.php">로그인</a>
-		<?php endif ?>
-		</div>
-</div>
+<?php require 'top-menu.php' ?>
 
 <a href="index.php">
 	<h1>블로그</h1>

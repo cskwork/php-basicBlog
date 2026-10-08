@@ -71,7 +71,7 @@ function redirectAndExit($script)
  */
 function htmlEscape($html)
 {
-    return htmlspecialchars($html, ENT_HTML5, 'UTF-8');
+    return htmlspecialchars($html, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
 
 //Date Parsing
